@@ -3,24 +3,334 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="2進数をスイッチとアニメーションで直感的に理解できる無料学習ツール。0〜255を8ビットで可視化します。">
+  <meta name="description" content="2進数をスイッチで触りながら理解できる無料学習ツール。0〜255を8ビットで試せます。">
   <meta name="theme-color" content="#0b1020">
-  <title>2進数を動きで理解する | Binary Visualizer</title>
+  <title>2進数って、こういうこと。| Binary Visualizer</title>
   <style>
-    :root{--bg:#0b1020;--panel:#131a2c;--panel2:#182238;--text:#f7f8fb;--muted:#aab3c6;--line:#2a3651;--accent:#7dd3fc;--accent2:#38bdf8;--on:#22c55e;--off:#334155;--radius:18px;--shadow:0 18px 50px rgba(0,0,0,.22)}
-    *{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;color:var(--text);background:radial-gradient(circle at 10% 10%,rgba(56,189,248,.12),transparent 35%),radial-gradient(circle at 90% 0%,rgba(34,197,94,.08),transparent 30%),var(--bg);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Kaku Gothic ProN","Yu Gothic","Meiryo",sans-serif;line-height:1.7} button,input{font:inherit} button:focus-visible,input:focus-visible{outline:3px solid rgba(125,211,252,.55);outline-offset:3px}.container{width:min(1100px,calc(100% - 32px));margin:0 auto}header{padding:64px 0 28px;text-align:center}.eyebrow{display:inline-flex;padding:6px 12px;border:1px solid var(--line);border-radius:999px;color:var(--accent);background:rgba(19,26,44,.7);font-size:13px;font-weight:700;letter-spacing:.08em}h1{margin:18px 0 12px;font-size:clamp(32px,7vw,64px);line-height:1.08;letter-spacing:-.04em}.lead{max-width:720px;margin:0 auto;color:var(--muted);font-size:clamp(15px,2vw,18px)}main{padding-bottom:72px}.card{background:linear-gradient(180deg,rgba(24,34,56,.96),rgba(19,26,44,.96));border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}.summary{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;overflow:hidden;margin:26px 0 18px;background:var(--line)}.metric{min-width:0;padding:24px 18px;text-align:center;background:var(--panel)}.metric-label{color:var(--muted);font-size:13px;font-weight:700}.metric-value{margin-top:4px;font-size:clamp(26px,5vw,40px);font-weight:800;line-height:1.25;font-variant-numeric:tabular-nums;word-break:break-all}.binary-value{color:var(--accent);letter-spacing:.08em}.visualizer,.controls,.explain{padding:26px}.section-title{margin:0 0 6px;font-size:22px}.section-note{margin:0 0 22px;color:var(--muted);font-size:14px}.bits{display:grid;grid-template-columns:repeat(8,minmax(86px,1fr));gap:10px}.bit{position:relative;min-height:154px;padding:16px 8px;border:1px solid var(--line);border-radius:16px;color:var(--text);background:#0f172a;cursor:pointer;transition:transform .15s ease,border-color .2s ease,background .2s ease,box-shadow .2s ease;user-select:none}.bit:hover{transform:translateY(-2px)}.bit[data-on="true"]{border-color:rgba(34,197,94,.7);background:linear-gradient(180deg,rgba(34,197,94,.17),rgba(15,23,42,.95));box-shadow:inset 0 0 0 1px rgba(34,197,94,.08),0 10px 28px rgba(34,197,94,.10)}.weight{display:block;color:var(--muted);font-size:13px;font-weight:700}.lamp{display:grid;place-items:center;width:52px;height:52px;margin:14px auto 12px;border-radius:50%;background:var(--off);box-shadow:inset 0 0 0 6px rgba(255,255,255,.03);transition:background .2s ease,box-shadow .2s ease,transform .2s ease}.bit[data-on="true"] .lamp{background:var(--on);box-shadow:0 0 30px rgba(34,197,94,.48),inset 0 0 0 6px rgba(255,255,255,.08);transform:scale(1.03)}.digit{display:block;font-size:32px;font-weight:900;line-height:1}.sum{margin:22px 0 0;padding:17px 18px;border:1px dashed var(--line);border-radius:14px;text-align:center;font-size:clamp(16px,3vw,22px);font-weight:800;font-variant-numeric:tabular-nums}.sum .active-number{color:var(--accent)}.controls{margin-top:18px}.control-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}.field-label{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;font-weight:800}.field-help{color:var(--muted);font-size:12px;font-weight:500}.number-row{display:flex;gap:10px}input[type="number"]{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:12px;color:var(--text);background:#0f172a}input[type="range"]{width:100%;margin:20px 0 4px;accent-color:var(--accent2)}.range-scale{display:flex;justify-content:space-between;color:var(--muted);font-size:12px}.buttons{display:flex;flex-wrap:wrap;gap:10px}.btn{min-height:44px;padding:10px 14px;border:1px solid var(--line);border-radius:12px;color:var(--text);background:#0f172a;cursor:pointer;font-weight:800;transition:border-color .2s ease,background .2s ease,transform .15s ease}.btn:hover{border-color:#49617f;transform:translateY(-1px)}.btn.primary{border-color:rgba(56,189,248,.45);background:rgba(56,189,248,.14);color:#dff6ff}.speed{display:flex;gap:8px;margin-top:14px;align-items:center;flex-wrap:wrap}.speed-label{margin-right:4px;color:var(--muted);font-size:13px;font-weight:700}.speed .btn[aria-pressed="true"]{border-color:var(--accent);background:rgba(125,211,252,.12);color:var(--accent)}.explain{margin-top:18px}.explain-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:28px;align-items:start}.explain p{margin:10px 0 0;color:var(--muted)}.place-table{width:100%;border-collapse:collapse;overflow:hidden;border-radius:12px;background:#0f172a}.place-table th,.place-table td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:left}.place-table tr:last-child td{border-bottom:0}.place-table th{color:var(--muted);font-size:12px}.mini{margin-top:18px;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.mini-card{padding:20px;border:1px solid var(--line);border-radius:16px;background:rgba(19,26,44,.88)}.mini-card h3{margin:0 0 7px;font-size:16px}.mini-card p{margin:0;color:var(--muted);font-size:14px}.demo-code{margin-top:14px;padding:12px;border-radius:10px;background:#090e1b;color:var(--accent);font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13px;overflow-wrap:anywhere}footer{padding:26px 0 42px;color:var(--muted);text-align:center;font-size:13px}@media(max-width:900px){.bits{grid-template-columns:repeat(4,1fr)}.control-grid,.explain-grid{grid-template-columns:1fr}}@media(max-width:620px){header{padding-top:44px}.container{width:min(100% - 20px,1100px)}.summary{grid-template-columns:1fr}.visualizer,.controls,.explain{padding:18px}.bits{gap:8px}.bit{min-height:132px;padding:13px 5px}.lamp{width:44px;height:44px;margin:10px auto}.digit{font-size:27px}.mini{grid-template-columns:1fr}.number-row{flex-direction:column}}@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important}}
+    :root{
+      --bg:#0b1020;--panel:#131a2c;--panel2:#182238;--text:#f7f8fb;
+      --muted:#aab3c6;--line:#2a3651;--accent:#7dd3fc;--accent2:#38bdf8;
+      --on:#22c55e;--off:#334155;--radius:18px;--shadow:0 18px 50px rgba(0,0,0,.22)
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;color:var(--text);line-height:1.65;
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Kaku Gothic ProN","Yu Gothic","Meiryo",sans-serif;
+      background:
+        radial-gradient(circle at 10% 5%,rgba(56,189,248,.11),transparent 32%),
+        radial-gradient(circle at 90% 0%,rgba(34,197,94,.07),transparent 28%),
+        var(--bg)
+    }
+    button,input{font:inherit}
+    button:focus-visible,input:focus-visible{outline:3px solid rgba(125,211,252,.55);outline-offset:3px}
+    .container{width:min(1040px,calc(100% - 28px));margin:0 auto}
+    header{padding:40px 0 16px}
+    .kicker{color:var(--accent);font-size:13px;font-weight:800;letter-spacing:.08em}
+    h1{margin:8px 0 8px;font-size:clamp(32px,6vw,56px);line-height:1.12;letter-spacing:-.04em}
+    .lead{max-width:690px;margin:0;color:var(--muted);font-size:clamp(15px,2vw,18px)}
+    main{padding-bottom:64px}
+    .card{
+      background:linear-gradient(180deg,rgba(24,34,56,.96),rgba(19,26,44,.96));
+      border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)
+    }
+    .current{margin:14px 0 14px;padding:18px 20px}
+    .binary-big{text-align:center}
+    .binary-label{color:var(--muted);font-size:12px;font-weight:800}
+    .binary-value{
+      margin-top:2px;color:var(--accent);font-size:clamp(30px,7vw,48px);
+      font-weight:900;letter-spacing:.09em;font-variant-numeric:tabular-nums
+    }
+    .small-values{display:flex;justify-content:center;gap:10px;margin-top:10px}
+    .value-chip{
+      min-width:132px;padding:8px 14px;border:1px solid var(--line);
+      border-radius:12px;background:#0f172a;text-align:center
+    }
+    .value-chip span{display:block;color:var(--muted);font-size:11px;font-weight:700}
+    .value-chip strong{font-size:21px;font-variant-numeric:tabular-nums}
+    .visualizer{padding:22px}
+    .section-title{margin:0 0 4px;font-size:21px}
+    .section-note{margin:0 0 16px;color:var(--muted);font-size:14px}
+    .bits{display:grid;grid-template-columns:repeat(8,minmax(76px,1fr));gap:9px}
+    .bit{
+      min-height:140px;padding:13px 6px;border:1px solid var(--line);border-radius:15px;
+      color:var(--text);background:#0f172a;cursor:pointer;user-select:none;
+      transition:transform .15s ease,border-color .2s ease,background .2s ease,box-shadow .2s ease
+    }
+    .bit:hover{transform:translateY(-2px)}
+    .bit[data-on="true"]{
+      border-color:rgba(34,197,94,.7);
+      background:linear-gradient(180deg,rgba(34,197,94,.17),rgba(15,23,42,.95));
+      box-shadow:0 10px 28px rgba(34,197,94,.10)
+    }
+    .weight{display:block;color:var(--muted);font-size:12px;font-weight:800}
+    .lamp{
+      display:block;width:46px;height:46px;margin:10px auto;border-radius:50%;
+      background:var(--off);box-shadow:inset 0 0 0 6px rgba(255,255,255,.03);
+      transition:.2s
+    }
+    .bit[data-on="true"] .lamp{
+      background:var(--on);
+      box-shadow:0 0 26px rgba(34,197,94,.46),inset 0 0 0 6px rgba(255,255,255,.08)
+    }
+    .digit{display:block;font-size:29px;font-weight:900;line-height:1}
+    .sum{
+      margin-top:16px;padding:13px 14px;border:1px dashed var(--line);border-radius:13px;
+      text-align:center;font-size:clamp(16px,3vw,21px);font-weight:850;font-variant-numeric:tabular-nums
+    }
+    .sum strong{color:var(--accent)}
+    .controls,.explain{margin-top:14px;padding:22px}
+    .control-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+    .field-label{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:7px;font-weight:800}
+    .field-help{color:var(--muted);font-size:12px;font-weight:500}
+    .number-row{display:flex;gap:9px}
+    input[type="number"]{
+      width:100%;padding:11px 13px;border:1px solid var(--line);border-radius:11px;
+      color:var(--text);background:#0f172a
+    }
+    input[type="range"]{width:100%;margin:17px 0 3px;accent-color:var(--accent2)}
+    .range-scale{display:flex;justify-content:space-between;color:var(--muted);font-size:11px}
+    .buttons,.speed{display:flex;flex-wrap:wrap;gap:8px}
+    .btn{
+      min-height:42px;padding:9px 13px;border:1px solid var(--line);border-radius:11px;
+      color:var(--text);background:#0f172a;cursor:pointer;font-weight:800
+    }
+    .btn.primary{border-color:rgba(56,189,248,.45);background:rgba(56,189,248,.14)}
+    .speed{margin-top:12px;align-items:center}
+    .speed-label{margin-right:2px;color:var(--muted);font-size:12px;font-weight:700}
+    .speed .btn[aria-pressed="true"]{border-color:var(--accent);color:var(--accent)}
+    .explain-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:24px}
+    .explain p{margin:9px 0 0;color:var(--muted)}
+    .place-table{width:100%;border-collapse:collapse;background:#0f172a;border-radius:12px;overflow:hidden}
+    .place-table th,.place-table td{padding:9px 11px;border-bottom:1px solid var(--line);text-align:left}
+    .place-table th{color:var(--muted);font-size:12px}
+    .place-table tr:last-child td{border-bottom:0}
+    .mini{margin-top:14px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+    .mini-card{padding:18px;border:1px solid var(--line);border-radius:15px;background:rgba(19,26,44,.9)}
+    .mini-card h3{margin:0 0 5px;font-size:16px}
+    .mini-card p{margin:0;color:var(--muted);font-size:13px}
+    .demo-code{
+      margin-top:11px;padding:10px;border-radius:9px;background:#090e1b;color:var(--accent);
+      font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13px
+    }
+    footer{padding:22px 0 36px;color:var(--muted);text-align:center;font-size:12px}
+    @media(max-width:860px){
+      .bits{grid-template-columns:repeat(4,1fr)}
+      .control-grid,.explain-grid{grid-template-columns:1fr}
+    }
+    @media(max-width:620px){
+      .container{width:min(100% - 18px,1040px)}
+      header{padding:24px 2px 10px}
+      .kicker{font-size:11px}
+      h1{margin:5px 0 5px;font-size:31px}
+      .lead{font-size:14px;line-height:1.5}
+      .current{margin:8px 0 9px;padding:10px 12px}
+      .binary-label{font-size:10px}
+      .binary-value{font-size:31px;line-height:1.15}
+      .small-values{margin-top:6px;gap:7px}
+      .value-chip{min-width:0;flex:1;padding:5px 8px}
+      .value-chip span{font-size:10px}
+      .value-chip strong{font-size:18px}
+      .visualizer{padding:14px}
+      .section-title{font-size:18px}
+      .section-note{margin-bottom:11px;font-size:12px;line-height:1.45}
+      .bits{gap:6px}
+      .bit{min-height:96px;padding:8px 3px;border-radius:12px}
+      .weight{font-size:10px}
+      .lamp{width:32px;height:32px;margin:6px auto}
+      .digit{font-size:22px}
+      .sum{margin-top:10px;padding:9px 8px;font-size:15px}
+      .controls,.explain{padding:16px}
+      .mini{grid-template-columns:1fr}
+      .number-row{flex-direction:column}
+    }
+    @media(prefers-reduced-motion:reduce){
+      *,*::before,*::after{scroll-behavior:auto!important;transition:none!important}
+    }
   </style>
 </head>
 <body>
-<header class="container"><div class="eyebrow">BINARY VISUALIZER</div><h1>2進数を、動きで理解する。</h1><p class="lead">0と1を暗記する必要はありません。スイッチを触って、数がどう変わるかを見れば、2進数は「違う書き方をした普通の数」だと分かります。</p></header>
-<main class="container">
-<section class="summary card" aria-label="現在の数"><div class="metric"><div class="metric-label">10進数</div><div class="metric-value" id="decimalValue">90</div></div><div class="metric"><div class="metric-label">2進数</div><div class="metric-value binary-value" id="binaryValue">01011010</div></div><div class="metric"><div class="metric-label">16進数</div><div class="metric-value" id="hexValue">5A</div></div></section>
-<section class="visualizer card"><h2 class="section-title">スイッチを押してみる</h2><p class="section-note">緑のスイッチが「1」、消えているスイッチが「0」です。各スイッチは 128〜1 の値を持っています。</p><div class="bits" id="bits" aria-label="8ビットの2進数スイッチ"></div><div class="sum" aria-live="polite"><span id="sumExpression">64 + 16 + 8 + 2</span><span> = </span><span class="active-number" id="sumResult">90</span></div></section>
-<section class="controls card"><h2 class="section-title">10進数から動かす</h2><p class="section-note">0〜255の値を入力するか、スライダーを動かしてください。</p><div class="control-grid"><div><div class="field-label"><label for="decimalInput">10進数</label><span class="field-help">0〜255</span></div><div class="number-row"><input id="decimalInput" type="number" min="0" max="255" step="1" value="90" inputmode="numeric"><button class="btn primary" id="applyButton" type="button">反映</button></div><input id="decimalRange" type="range" min="0" max="255" value="90" aria-label="0から255までの10進数スライダー"><div class="range-scale"><span>0</span><span>255</span></div></div><div><div class="field-label"><span>1ずつ増える様子を見る</span><span class="field-help">255の次は0に戻ります</span></div><div class="buttons"><button class="btn primary" id="playButton" type="button">▶ 再生</button><button class="btn" id="stepButton" type="button">＋1</button><button class="btn" id="resetButton" type="button">0に戻す</button></div><div class="speed" aria-label="再生速度"><span class="speed-label">速度</span><button class="btn speed-btn" data-delay="1200" type="button" aria-pressed="false">遅い</button><button class="btn speed-btn" data-delay="650" type="button" aria-pressed="true">普通</button><button class="btn speed-btn" data-delay="250" type="button" aria-pressed="false">速い</button></div></div></div></section>
-<section class="explain card"><div class="explain-grid"><div><h2 class="section-title">なぜ 1, 2, 4, 8… になる？</h2><p>10進数では、左へ1桁進むと「10倍」になります。2進数では、左へ1桁進むと「2倍」になります。そのため右から順に 1、2、4、8、16、32、64、128 と増えていきます。</p><p>たとえば <strong>01011010</strong> は、1になっている <strong>64・16・8・2</strong> を足した数です。だから10進数では <strong>90</strong> になります。</p></div><table class="place-table" aria-label="2進数の桁と値"><thead><tr><th>右から</th><th>値</th><th>2の何乗</th></tr></thead><tbody><tr><td>1桁目</td><td>1</td><td>2⁰</td></tr><tr><td>2桁目</td><td>2</td><td>2¹</td></tr><tr><td>3桁目</td><td>4</td><td>2²</td></tr><tr><td>4桁目</td><td>8</td><td>2³</td></tr><tr><td>8桁目</td><td>128</td><td>2⁷</td></tr></tbody></table></div></section>
-<section class="mini" aria-label="2進数の身近な使われ方"><article class="mini-card"><h3>16進数との関係</h3><p>2進数は4桁ごとに区切ると16進数へ簡単に置き換えられます。</p><div class="demo-code" id="hexDemo">0101 1010 → 5A</div></article><article class="mini-card"><h3>文字も数字になる</h3><p>コンピュータは文字にも番号を割り当てています。例として英字 A は10進数で65です。</p><div class="demo-code">A → 65 → 01000001</div></article><article class="mini-card"><h3>8ビット = 1バイト</h3><p>このページで触っている8個の0/1をまとめた単位が1バイトです。0〜255の256通りを表せます。</p><div class="demo-code">00000000 〜 11111111</div></article></section>
-</main><footer class="container">Binary Visualizer — 触って理解するコンピュータ基礎</footer>
-<script>
-(()=>{const weights=[128,64,32,16,8,4,2,1],bitsEl=document.getElementById('bits'),decimalValueEl=document.getElementById('decimalValue'),binaryValueEl=document.getElementById('binaryValue'),hexValueEl=document.getElementById('hexValue'),sumExpressionEl=document.getElementById('sumExpression'),sumResultEl=document.getElementById('sumResult'),decimalInput=document.getElementById('decimalInput'),decimalRange=document.getElementById('decimalRange'),applyButton=document.getElementById('applyButton'),playButton=document.getElementById('playButton'),stepButton=document.getElementById('stepButton'),resetButton=document.getElementById('resetButton'),speedButtons=[...document.querySelectorAll('.speed-btn')],hexDemo=document.getElementById('hexDemo');let value=90,timer=null,delay=650;const clampByte=n=>Number.isFinite(n)?Math.min(255,Math.max(0,Math.trunc(n))):0,getBinary=n=>n.toString(2).padStart(8,'0');function buildBits(){weights.forEach((weight,index)=>{const button=document.createElement('button');button.type='button';button.className='bit';button.dataset.index=String(index);button.innerHTML=`<span class="weight">値 ${weight}</span><span class="lamp" aria-hidden="true"></span><span class="digit">0</span>`;button.addEventListener('click',()=>toggleBit(index));bitsEl.appendChild(button)})}function toggleBit(index){value=value^weights[index];update()}function setValue(n){value=clampByte(n);update()}function update(){const binary=getBinary(value),activeWeights=[];[...bitsEl.children].forEach((button,index)=>{const on=binary[index]==='1';button.dataset.on=String(on);button.querySelector('.digit').textContent=on?'1':'0';button.setAttribute('aria-label',`値 ${weights[index]} のビット。現在 ${on?'1、オン':'0、オフ'}。押すと切り替えます。`);button.setAttribute('aria-pressed',String(on));if(on)activeWeights.push(weights[index])});const hex=value.toString(16).toUpperCase().padStart(2,'0');decimalValueEl.textContent=String(value);binaryValueEl.textContent=binary;hexValueEl.textContent=hex;decimalInput.value=String(value);decimalRange.value=String(value);sumExpressionEl.textContent=activeWeights.length?activeWeights.join(' + '):'0';sumResultEl.textContent=String(value);hexDemo.textContent=`${binary.slice(0,4)} ${binary.slice(4)} → ${hex}`}function stop(){if(timer!==null){clearInterval(timer);timer=null}playButton.textContent='▶ 再生';playButton.setAttribute('aria-pressed','false')}function play(){if(timer!==null){stop();return}playButton.textContent='⏸ 停止';playButton.setAttribute('aria-pressed','true');timer=setInterval(()=>{value=(value+1)&255;update()},delay)}function restartIfPlaying(){if(timer===null)return;clearInterval(timer);timer=setInterval(()=>{value=(value+1)&255;update()},delay)}applyButton.addEventListener('click',()=>setValue(Number(decimalInput.value)));decimalInput.addEventListener('keydown',e=>{if(e.key==='Enter')setValue(Number(decimalInput.value))});decimalInput.addEventListener('change',()=>setValue(Number(decimalInput.value)));decimalRange.addEventListener('input',()=>setValue(Number(decimalRange.value)));playButton.addEventListener('click',play);stepButton.addEventListener('click',()=>setValue((value+1)&255));resetButton.addEventListener('click',()=>{stop();setValue(0)});speedButtons.forEach(button=>button.addEventListener('click',()=>{delay=Number(button.dataset.delay);speedButtons.forEach(b=>b.setAttribute('aria-pressed',String(b===button)));restartIfPlaying()}));buildBits();update()})();
-</script>
-</body></html>
+  <header class="container">
+    <div class="kicker">2進数を触ってみる</div>
+    <h1>2進数って、こういうこと。</h1>
+    <p class="lead">下のスイッチを押してみてください。点いている数字を足すと、そのまま10進数になります。</p>
+  </header>
+
+  <main class="container">
+    <section class="current card" aria-label="現在の数">
+      <div class="binary-big">
+        <div class="binary-label">2進数</div>
+        <div class="binary-value" id="binaryValue">00100011</div>
+      </div>
+      <div class="small-values">
+        <div class="value-chip"><span>10進数</span><strong id="decimalValue">35</strong></div>
+        <div class="value-chip"><span>16進数</span><strong id="hexValue">23</strong></div>
+      </div>
+    </section>
+
+    <section class="visualizer card">
+      <h2 class="section-title">押すと 0 / 1 が切り替わります</h2>
+      <p class="section-note">緑が1。消えているところが0です。</p>
+      <div class="bits" id="bits" aria-label="8ビットの2進数スイッチ"></div>
+      <div class="sum" aria-live="polite">
+        <span id="sumExpression">32 + 2 + 1</span> = <strong id="sumResult">35</strong>
+      </div>
+    </section>
+
+    <section class="controls card">
+      <h2 class="section-title">数字から試す</h2>
+      <p class="section-note">0〜255を入れると、スイッチが自動で切り替わります。</p>
+      <div class="control-grid">
+        <div>
+          <div class="field-label">
+            <label for="decimalInput">10進数</label><span class="field-help">0〜255</span>
+          </div>
+          <div class="number-row">
+            <input id="decimalInput" type="number" min="0" max="255" step="1" value="35" inputmode="numeric">
+            <button class="btn primary" id="applyButton" type="button">反映</button>
+          </div>
+          <input id="decimalRange" type="range" min="0" max="255" value="35" aria-label="0から255までの10進数スライダー">
+          <div class="range-scale"><span>0</span><span>255</span></div>
+        </div>
+        <div>
+          <div class="field-label">
+            <span>数え上がる動きを見る</span><span class="field-help">255の次は0</span>
+          </div>
+          <div class="buttons">
+            <button class="btn primary" id="playButton" type="button">▶ 再生</button>
+            <button class="btn" id="stepButton" type="button">＋1</button>
+            <button class="btn" id="resetButton" type="button">0に戻す</button>
+          </div>
+          <div class="speed" aria-label="再生速度">
+            <span class="speed-label">速度</span>
+            <button class="btn speed-btn" data-delay="1200" type="button" aria-pressed="false">遅い</button>
+            <button class="btn speed-btn" data-delay="650" type="button" aria-pressed="true">普通</button>
+            <button class="btn speed-btn" data-delay="250" type="button" aria-pressed="false">速い</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="explain card">
+      <div class="explain-grid">
+        <div>
+          <h2 class="section-title">なんで 1、2、4、8… なの？</h2>
+          <p>10進数は左へ1桁進むと10倍。2進数は2倍です。だから右から 1、2、4、8、16、32、64、128 と並びます。</p>
+          <p>たとえば <strong>00100011</strong> なら、1になっている <strong>32・2・1</strong> を足して <strong>35</strong> です。</p>
+        </div>
+        <table class="place-table" aria-label="2進数の桁と値">
+          <thead><tr><th>右から</th><th>値</th><th>表し方</th></tr></thead>
+          <tbody>
+            <tr><td>1桁目</td><td>1</td><td>2⁰</td></tr>
+            <tr><td>2桁目</td><td>2</td><td>2¹</td></tr>
+            <tr><td>3桁目</td><td>4</td><td>2²</td></tr>
+            <tr><td>4桁目</td><td>8</td><td>2³</td></tr>
+            <tr><td>8桁目</td><td>128</td><td>2⁷</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="mini" aria-label="2進数の使われ方">
+      <article class="mini-card">
+        <h3>16進数にすると</h3>
+        <p>2進数を4桁ずつ区切ると、16進数に置き換えやすくなります。</p>
+        <div class="demo-code" id="hexDemo">0010 0011 → 23</div>
+      </article>
+      <article class="mini-card">
+        <h3>文字も数字です</h3>
+        <p>英字の A には65という番号があります。</p>
+        <div class="demo-code">A → 65 → 01000001</div>
+      </article>
+      <article class="mini-card">
+        <h3>8ビットで1バイト</h3>
+        <p>8個の0/1で、0〜255の256通りを表せます。</p>
+        <div class="demo-code">00000000 〜 11111111</div>
+      </article>
+    </section>
+  </main>
+
+  <footer class="container">Binary Visualizer</footer>
+
+  <script>
+    (() => {
+      const weights=[128,64,32,16,8,4,2,1];
+      const $=id=>document.getElementById(id);
+      const bitsEl=$('bits'), decimalValueEl=$('decimalValue'), binaryValueEl=$('binaryValue'),
+            hexValueEl=$('hexValue'), sumExpressionEl=$('sumExpression'), sumResultEl=$('sumResult'),
+            decimalInput=$('decimalInput'), decimalRange=$('decimalRange'), applyButton=$('applyButton'),
+            playButton=$('playButton'), stepButton=$('stepButton'), resetButton=$('resetButton'),
+            speedButtons=[...document.querySelectorAll('.speed-btn')], hexDemo=$('hexDemo');
+
+      let value=35, timer=null, delay=650;
+
+      const clampByte=n=>Number.isFinite(n)?Math.min(255,Math.max(0,Math.trunc(n))):0;
+      const binaryOf=n=>n.toString(2).padStart(8,'0');
+
+      weights.forEach((weight,index)=>{
+        const button=document.createElement('button');
+        button.type='button';
+        button.className='bit';
+        button.innerHTML=`<span class="weight">${weight}</span><span class="lamp" aria-hidden="true"></span><span class="digit">0</span>`;
+        button.addEventListener('click',()=>{value=value^weight;update()});
+        bitsEl.appendChild(button);
+      });
+
+      function update(){
+        const binary=binaryOf(value), active=[];
+        [...bitsEl.children].forEach((button,index)=>{
+          const on=binary[index]==='1';
+          button.dataset.on=String(on);
+          button.querySelector('.digit').textContent=on?'1':'0';
+          button.setAttribute('aria-pressed',String(on));
+          button.setAttribute('aria-label',`${weights[index]} のビット。現在 ${on?'1':'0'}。押すと切り替わります。`);
+          if(on) active.push(weights[index]);
+        });
+
+        const hex=value.toString(16).toUpperCase().padStart(2,'0');
+        binaryValueEl.textContent=binary;
+        decimalValueEl.textContent=String(value);
+        hexValueEl.textContent=hex;
+        decimalInput.value=String(value);
+        decimalRange.value=String(value);
+        sumExpressionEl.textContent=active.length?active.join(' + '):'0';
+        sumResultEl.textContent=String(value);
+        hexDemo.textContent=`${binary.slice(0,4)} ${binary.slice(4)} → ${hex}`;
+      }
+
+      function setValue(n){value=clampByte(n);update()}
+      function stop(){
+        if(timer!==null){clearInterval(timer);timer=null}
+        playButton.textContent='▶ 再生';
+        playButton.setAttribute('aria-pressed','false');
+      }
+      function play(){
+        if(timer!==null){stop();return}
+        playButton.textContent='⏸ 停止';
+        playButton.setAttribute('aria-pressed','true');
+        timer=setInterval(()=>{value=(value+1)&255;update()},delay);
+      }
+      function restartIfPlaying(){
+        if(timer===null)return;
+        clearInterval(timer);
+        timer=setInterval(()=>{value=(value+1)&255;update()},delay);
+      }
+
+      applyButton.addEventListener('click',()=>setValue(Number(decimalInput.value)));
+      decimalInput.addEventListener('keydown',e=>{if(e.key==='Enter')setValue(Number(decimalInput.value))});
+      decimalInput.addEventListener('change',()=>setValue(Number(decimalInput.value)));
+      decimalRange.addEventListener('input',()=>setValue(Number(decimalRange.value)));
+      playButton.addEventListener('click',play);
+      stepButton.addEventListener('click',()=>setValue((value+1)&255));
+      resetButton.addEventListener('click',()=>{stop();setValue(0)});
+      speedButtons.forEach(button=>button.addEventListener('click',()=>{
+        delay=Number(button.dataset.delay);
+        speedButtons.forEach(b=>b.setAttribute('aria-pressed',String(b===button)));
+        restartIfPlaying();
+      }));
+
+      update();
+    })();
+  </script>
+</body>
+</html>
