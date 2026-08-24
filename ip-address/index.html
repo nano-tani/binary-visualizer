@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="IPv4アドレスを4つの8ビットに分解し、各ビットをタップしながらIPアドレスの仕組みを直感的に理解できる無料教材です。">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="theme-color" content="#eef4fb">
+<link rel="canonical" href="https://nano-tani.github.io/binary-visualizer/ip-address/">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:site_name" content="Computer Basics Lab">
+<meta property="og:title" content="IPアドレスとは？32ビットを触って理解する">
+<meta property="og:description" content="192.168.1.10のようなIPv4アドレスを4つの8ビットに分解して、実際に触りながら理解できます。">
+<meta property="og:url" content="https://nano-tani.github.io/binary-visualizer/ip-address/">
+<meta name="twitter:card" content="summary">
+<title>IPアドレスとは？32ビットを触って理解する | Computer Basics Lab</title>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":["WebApplication","LearningResource"],"name":"IPアドレスを32ビットで触って理解する","url":"https://nano-tani.github.io/binary-visualizer/ip-address/","description":"IPv4アドレスを4つの8ビットに分解して学ぶ教材","applicationCategory":"EducationalApplication","operatingSystem":"Any","inLanguage":"ja","isAccessibleForFree":true}</script>
+<style>
+:root{--bg:#eef4fb;--bg2:#fbfdff;--card:#fff;--line:#d7e0eb;--text:#17223b;--sub:#66738a;--blue:#4f8fe8;--blue2:#e7f0ff;--green:#66c381;--green2:#edf8f0;--shadow:0 8px 22px rgba(31,58,108,.07);--r:20px}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Kaku Gothic ProN","Yu Gothic","Meiryo",sans-serif;color:var(--text);background:linear-gradient(180deg,var(--bg),var(--bg2));line-height:1.65}
+.wrap{width:min(980px,calc(100% - 24px));margin:auto}
+header{padding:26px 0 12px}
+.tag{display:inline-block;text-decoration:none;padding:6px 11px;border-radius:999px;background:var(--blue2);color:var(--blue);font-weight:800;letter-spacing:.08em;font-size:11px}
+h1{margin:13px 0 6px;font-size:clamp(28px,8vw,44px);line-height:1.08;letter-spacing:-.035em}
+.lead{margin:0;color:var(--sub);font-size:14px;max-width:47em}
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow)}
+.sec{margin-top:12px;padding:17px}
+.sec h2{margin:0 0 7px;font-size:22px}
+.note{color:var(--sub);font-size:13px;margin:0 0 14px}
+.ip-inputs{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;align-items:center;position:relative}
+.ip-input{min-width:0;height:54px;border:1px solid var(--line);border-radius:14px;background:#fff;text-align:center;font-size:22px;font-weight:900;color:var(--text)}
+.ip-slot{position:relative}
+.ip-slot:not(:last-child)::after{content:".";position:absolute;right:-12px;top:5px;font-size:28px;font-weight:900;color:#8b9ab0}
+.samples{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}
+.sample{border:1px solid var(--line);border-radius:10px;background:#fff;padding:7px 10px;font-weight:800;color:var(--text);cursor:pointer}
+.ip-display{margin-top:12px;padding:13px;border-radius:15px;background:var(--blue2);color:var(--blue);text-align:center;font-weight:900;font-size:clamp(20px,6vw,30px);letter-spacing:.015em}
+.octets{display:grid;gap:10px;margin-top:14px}
+.octet{padding:13px;border:1px solid var(--line);border-radius:16px;background:#fbfdff}
+.octet-head{display:flex;justify-content:space-between;gap:10px;align-items:end;margin-bottom:8px}
+.octet-head strong{font-size:15px}
+.octet-meta{font-size:11px;color:var(--sub);font-weight:800}
+.bits{display:grid;grid-template-columns:repeat(8,1fr);gap:5px}
+.bit{appearance:none;min-width:0;min-height:76px;border:1.5px solid #d2dce8;border-radius:12px;background:#f3f6fa;padding:7px 1px;text-align:center;color:var(--text);cursor:pointer;-webkit-tap-highlight-color:transparent}
+.bit:active{transform:scale(.96)}
+.bit.on{background:var(--green2);border-color:#8ed0a2}
+.bit small{display:block;color:var(--sub);font-size:9px;font-weight:800;white-space:nowrap}
+.bit b{display:block;font-size:25px;line-height:1.2;margin-top:6px}
+.octet-result{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:8px}
+.mini{padding:8px 5px;border-radius:10px;background:#f3f6fa;text-align:center}
+.mini small{display:block;color:var(--sub);font-size:9px;font-weight:800}
+.mini b{display:block;margin-top:2px;font-size:14px}
+.summary{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:12px}
+.metric{padding:11px 5px;border-radius:12px;background:#f5f8fc;text-align:center}
+.metric small{display:block;color:var(--sub);font-size:10px;font-weight:800}
+.metric strong{display:block;margin-top:4px;font-size:clamp(16px,5vw,23px);white-space:nowrap}
+.binary-full{padding:12px;border:1px solid var(--line);border-radius:14px;background:#f8fbfe;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:#385f97;font-weight:800;text-align:center;overflow-wrap:anywhere;margin-top:10px}
+.explain-grid{display:grid;gap:10px}
+.explain{padding:14px;border:1px solid var(--line);border-radius:16px;background:#fbfdff}
+.explain strong{display:block;font-size:16px}
+.explain span{display:block;margin-top:4px;color:var(--sub);font-size:13px}
+.range-list{display:grid;gap:8px;margin-top:10px}
+.range{display:grid;grid-template-columns:132px 1fr;gap:10px;padding:11px 12px;border:1px solid var(--line);border-radius:14px;background:#f8fbfe}
+.range b{color:var(--blue)}
+.range span{color:var(--sub);font-size:13px}
+.why{font-size:14px;color:var(--sub)}
+.why strong{color:var(--text)}
+.next{padding:14px;border-radius:15px;background:#fff8e8;border:1px solid #eedba9;color:#735c1f;font-size:13px}
+footer{padding:28px 0;text-align:center;color:#7c8799;font-size:12px}
+footer a{color:inherit;text-decoration:none}
+@media(min-width:720px){.sec{padding:22px}.octets{grid-template-columns:repeat(2,1fr)}.explain-grid{grid-template-columns:repeat(2,1fr)}.bit{min-height:84px}.bit small{font-size:10px}.bit b{font-size:28px}}
+@media(max-width:480px){.ip-inputs{gap:12px}.ip-slot:not(:last-child)::after{right:-9px}.ip-input{height:48px;font-size:18px}.bits{gap:4px}.bit{min-height:66px;border-radius:10px}.bit small{font-size:8px}.bit b{font-size:22px}.range{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="wrap"><a class="tag" href="../">COMPUTER BASICS LAB</a><h1>IPアドレスを<br>32ビットで理解する</h1><p class="lead">192.168.1.10のようなIPv4アドレスは、実は32個の0と1です。8ビットずつ4つに分けて10進数に直し、読みやすいように「.」で区切っています。</p></header>
+<main class="wrap">
+<section class="card sec">
+<h2>IPアドレスを分解してみる</h2>
+<p class="note">数字を直接入力しても、下のビットをタップしても変更できます。各区切りは0〜255です。</p>
+<div class="ip-inputs">
+  <div class="ip-slot"><input class="ip-input" id="ip0" inputmode="numeric" type="number" min="0" max="255" value="192" aria-label="第1オクテット"></div>
+  <div class="ip-slot"><input class="ip-input" id="ip1" inputmode="numeric" type="number" min="0" max="255" value="168" aria-label="第2オクテット"></div>
+  <div class="ip-slot"><input class="ip-input" id="ip2" inputmode="numeric" type="number" min="0" max="255" value="1" aria-label="第3オクテット"></div>
+  <div class="ip-slot"><input class="ip-input" id="ip3" inputmode="numeric" type="number" min="0" max="255" value="10" aria-label="第4オクテット"></div>
+</div>
+<div class="samples">
+<button class="sample" data-ip="192.168.1.10">192.168.1.10</button>
+<button class="sample" data-ip="10.0.0.1">10.0.0.1</button>
+<button class="sample" data-ip="172.16.0.1">172.16.0.1</button>
+<button class="sample" data-ip="8.8.8.8">8.8.8.8</button>
+</div>
+<div class="ip-display" id="ipDisplay">192.168.1.10</div>
+<div class="octets" id="octets"></div>
+<div class="summary">
+  <div class="metric"><small>合計</small><strong>32 bit</strong></div>
+  <div class="metric"><small>byte数</small><strong>4 byte</strong></div>
+  <div class="metric"><small>区切り</small><strong>8 bit × 4</strong></div>
+</div>
+<div class="binary-full" id="binaryFull">11000000.10101000.00000001.00001010</div>
+</section>
+
+<section class="card sec">
+<h2>なぜ1つの数字が0〜255なの？</h2>
+<div class="explain-grid">
+  <div class="explain"><strong>1区切り = 8 bit</strong><span>8個の0/1で表せる値は、00000000から11111111までです。</span></div>
+  <div class="explain"><strong>11111111 = 255</strong><span>128 + 64 + 32 + 16 + 8 + 4 + 2 + 1 = 255。だから各区切りは最大255です。</span></div>
+</div>
+<p class="why">IPアドレスの4つの数字は別々のものではなく、<strong>1つの32ビット値を8ビットごとに読みやすく区切ったもの</strong>です。この8ビットの区切りを「オクテット」と呼びます。</p>
+</section>
+
+<section class="card sec">
+<h2>よく見るプライベートIP</h2>
+<p class="note">家庭や社内LANなど、内部ネットワークで使うために予約されているIPv4アドレス範囲です。</p>
+<div class="range-list">
+  <div class="range"><b>10.0.0.0/8</b><span>10.0.0.0 〜 10.255.255.255</span></div>
+  <div class="range"><b>172.16.0.0/12</b><span>172.16.0.0 〜 172.31.255.255</span></div>
+  <div class="range"><b>192.168.0.0/16</b><span>192.168.0.0 〜 192.168.255.255</span></div>
+</div>
+<p class="why">家のWi-Fiで192.168.x.xをよく見るのは、この範囲がプライベートネットワーク用だからです。</p>
+</section>
+
+<section class="card sec">
+<h2>次につながる考え方</h2>
+<div class="next">IPアドレスが32ビットだと分かると、次の「CIDR / サブネットマスク」は、この32ビットのうち<strong>どこまでがネットワーク部分か</strong>を決める話として理解しやすくなります。</div>
+</section>
+</main>
+<footer class="wrap"><a href="../">Computer Basics Lab</a> — 触って理解するIPアドレス</footer>
+<script>
+(()=>{
+const weights=[128,64,32,16,8,4,2,1], inputs=[0,1,2,3].map(i=>document.getElementById('ip'+i)), octets=document.getElementById('octets'), ipDisplay=document.getElementById('ipDisplay'), binaryFull=document.getElementById('binaryFull');
+let values=[192,168,1,10];
+function clamp(n){n=Number(n);if(!Number.isFinite(n))return 0;return Math.max(0,Math.min(255,Math.trunc(n)))}
+function bin(n){return n.toString(2).padStart(8,'0')}
+function hex(n){return n.toString(16).toUpperCase().padStart(2,'0')}
+function build(){
+  octets.innerHTML='';
+  for(let j=0;j<4;j++){
+    const box=document.createElement('div');
+    box.className='octet';
+    box.innerHTML=`<div class="octet-head"><strong>第${j+1}オクテット</strong><span class="octet-meta">8 bit = 1 byte</span></div><div class="bits"></div><div class="octet-result"><div class="mini"><small>10進数</small><b class="dec"></b></div><div class="mini"><small>2進数</small><b class="bin"></b></div><div class="mini"><small>16進数</small><b class="hex"></b></div></div>`;
+    const bits=box.querySelector('.bits');
+    weights.forEach((w,i)=>{
+      const b=document.createElement('button');b.type='button';b.className='bit';b.innerHTML=`<small>${w}</small><b>0</b>`;
+      b.onclick=()=>{values[j]^=w;render()};
+      bits.appendChild(b);
+    });
+    octets.appendChild(box);
+  }
+}
+function render(){
+  values=values.map(clamp);
+  inputs.forEach((el,i)=>{el.value=values[i]});
+  [...octets.children].forEach((box,j)=>{
+    const s=bin(values[j]);
+    [...box.querySelector('.bits').children].forEach((b,i)=>{const on=s[i]==='1';b.classList.toggle('on',on);b.querySelector('b').textContent=on?'1':'0'});
+    box.querySelector('.dec').textContent=values[j];
+    box.querySelector('.bin').textContent=s;
+    box.querySelector('.hex').textContent=hex(values[j]);
+  });
+  ipDisplay.textContent=values.join('.');
+  binaryFull.textContent=values.map(bin).join('.');
+}
+inputs.forEach((el,i)=>el.addEventListener('input',()=>{values[i]=clamp(el.value);render()}));
+document.querySelectorAll('.sample').forEach(btn=>btn.addEventListener('click',()=>{values=btn.dataset.ip.split('.').map(Number);render()}));
+build();render();
+})();
+</script>
+</body>
+</html>
