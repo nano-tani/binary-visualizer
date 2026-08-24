@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://nano-tani.github.io/binary-visualizer/sitemap.xml
