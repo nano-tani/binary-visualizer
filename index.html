@@ -34,12 +34,25 @@ h1{margin:13px 0 6px;font-size:clamp(28px,8.2vw,40px);line-height:1.08;letter-sp
 .bits{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
 .bit{
   min-height:118px;padding:10px 5px;border-radius:16px;border:1.5px solid #cfd9e4;background:#f3f6fa;cursor:pointer;
-  display:flex;flex-direction:column;align-items:center;justify-content:space-between;-webkit-tap-highlight-color:transparent
+  display:flex;flex-direction:column;align-items:center;justify-content:space-between;-webkit-tap-highlight-color:transparent;
+  transition:transform .16s ease, background-color .16s ease, border-color .16s ease, box-shadow .2s ease;
 }
 .bit[data-on=true]{background:var(--green2);border-color:#8ed0a2}
+.bit.changed-on{animation:carryOn .46s ease}
+.bit.changed-off{animation:carryOff .46s ease}
+@keyframes carryOn{
+  0%{transform:scale(1);box-shadow:0 0 0 rgba(102,195,129,0)}
+  45%{transform:scale(1.04);box-shadow:0 0 0 8px rgba(102,195,129,.22)}
+  100%{transform:scale(1);box-shadow:0 0 0 rgba(102,195,129,0)}
+}
+@keyframes carryOff{
+  0%{transform:scale(1);box-shadow:0 0 0 rgba(79,143,232,0)}
+  45%{transform:scale(1.04);box-shadow:0 0 0 8px rgba(79,143,232,.18)}
+  100%{transform:scale(1);box-shadow:0 0 0 rgba(79,143,232,0)}
+}
 .weight{color:#68758a;font-size:13px;font-weight:800}
-.lamp{width:42px;height:42px;border-radius:50%;background:var(--off);position:relative}
-.lamp:after{content:"";position:absolute;inset:9px;border-radius:50%;background:var(--off2)}
+.lamp{width:42px;height:42px;border-radius:50%;background:var(--off);position:relative;transition:background-color .16s ease}
+.lamp:after{content:"";position:absolute;inset:9px;border-radius:50%;background:var(--off2);transition:background-color .16s ease, box-shadow .16s ease}
 .bit[data-on=true] .lamp{background:#d7f0df}
 .bit[data-on=true] .lamp:after{background:var(--green);box-shadow:0 0 14px rgba(102,195,129,.28)}
 .digit{font-size:32px;line-height:1;font-weight:900;letter-spacing:-.03em;color:var(--text)}
@@ -108,7 +121,7 @@ footer{padding:6px 0 30px;text-align:center;color:#7c8799;font-size:12px}
 <main class="wrap">
 <section class="card sec">
   <h2>まず触ってみる</h2>
-  <p class="note">緑が1、白が0。上の数字がそのスイッチの値です。</p>
+  <p class="note">光っているところが1、消えているところが0。上の数字がそのスイッチの値です。</p>
   <div id="bits" class="bits" aria-label="8ビットのスイッチ"></div>
   <div class="sum"><span id="sumExpression">64 + 16 + 8 + 2</span> = <b id="sumResult">90</b></div>
 </section>
@@ -196,7 +209,7 @@ reset=document.getElementById('resetButton'),
 speeds=[...document.querySelectorAll('.sp')],
 hexDemo=document.getElementById('hexDemo');
 
-let v=90,t=null,d=650;
+let v=90,t=null,d=650,lastBinary='';
 const clamp=n=>Math.min(255,Math.max(0,Math.trunc(Number.isFinite(n)?n:0)));
 const b=n=>n.toString(2).padStart(8,'0');
 
@@ -204,17 +217,25 @@ w.forEach((x,i)=>{
   const e=document.createElement('button');
   e.type='button';e.className='bit';e.dataset.index=i;
   e.innerHTML=`<span class="weight">${x}</span><span class="lamp" aria-hidden="true"></span><span class="digit">0</span>`;
-  e.onclick=()=>{v^=x;u()};
+  e.onclick=()=>{v^=x;u(true)};
   bits.appendChild(e)
 });
 
-function u(){
+function flashBit(el, turnedOn){
+  el.classList.remove('changed-on','changed-off');
+  void el.offsetWidth;
+  el.classList.add(turnedOn ? 'changed-on' : 'changed-off');
+}
+
+function u(animate=false){
   const s=b(v),a=[];
   [...bits.children].forEach((e,i)=>{
     const on=s[i]==='1';
+    const prev=lastBinary ? lastBinary[i] : s[i];
     e.dataset.on=on;
     e.querySelector('.digit').textContent=on?'1':'0';
     e.setAttribute('aria-pressed',on);
+    if(animate && prev!==s[i]) flashBit(e,on);
     if(on)a.push(w[i])
   });
   const h=v.toString(16).toUpperCase().padStart(2,'0');
@@ -222,7 +243,8 @@ function u(){
   input.value=v;range.value=v;
   sumx.textContent=a.length?a.join(' + '):'0';
   sumr.textContent=v;
-  hexDemo.textContent=`${s.slice(0,4)} ${s.slice(4)} → ${h}`
+  hexDemo.textContent=`${s.slice(0,4)} ${s.slice(4)} → ${h}`;
+  lastBinary=s;
 }
 function stop(){
   if(t!==null){clearInterval(t);t=null}
@@ -231,26 +253,26 @@ function stop(){
 function re(){
   if(t===null)return;
   clearInterval(t);
-  t=setInterval(()=>{v=(v+1)&255;u()},d)
+  t=setInterval(()=>{v=(v+1)&255;u(true)},d)
 }
 
-apply.onclick=()=>{v=clamp(+input.value);u()};
-input.onchange=()=>{v=clamp(+input.value);u()};
-input.onkeydown=e=>{if(e.key==='Enter'){v=clamp(+input.value);u()}};
-range.oninput=()=>{v=clamp(+range.value);u()};
+apply.onclick=()=>{v=clamp(+input.value);u(true)};
+input.onchange=()=>{v=clamp(+input.value);u(true)};
+input.onkeydown=e=>{if(e.key==='Enter'){v=clamp(+input.value);u(true)}};
+range.oninput=()=>{v=clamp(+range.value);u(true)};
 play.onclick=()=>{
   if(t!==null){stop();return}
   play.textContent='⏸ 停止';play.setAttribute('aria-pressed','true');
-  t=setInterval(()=>{v=(v+1)&255;u()},d)
+  t=setInterval(()=>{v=(v+1)&255;u(true)},d)
 };
-step.onclick=()=>{v=(v+1)&255;u()};
-reset.onclick=()=>{stop();v=0;u()};
+step.onclick=()=>{v=(v+1)&255;u(true)};
+reset.onclick=()=>{stop();v=0;u(true)};
 speeds.forEach(btn=>btn.onclick=()=>{
   d=+btn.dataset.delay;
   speeds.forEach(x=>x.setAttribute('aria-pressed',x===btn));
   re()
 });
-u()
+u(false)
 })();
 </script>
 </body>
