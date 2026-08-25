@@ -6,72 +6,68 @@
 <meta name="description" content="2進数とは何かを、8個の0/1スイッチを触りながら初心者向けに解説。1・2・4・8と増える理由、8 bitで0〜255になる仕組みまで直感的に学べます。">
 <meta name="robots" content="index,follow,max-image-preview:large"><meta name="theme-color" content="#edf4fc">
 <link rel="canonical" href="https://nano-tani.github.io/binary-visualizer/binary/"><link rel="icon" href="../favicon.svg" type="image/svg+xml">
-<meta property="og:type" content="article"><meta property="og:locale" content="ja_JP"><meta property="og:site_name" content="Computer Basics Lab">
-<meta property="og:title" content="2進数とは？0と1の仕組みをスイッチで理解する"><meta property="og:description" content="2進数とは何かを、8個の0/1スイッチを触りながら初心者向けに解説。1・2・4・8と増える理由、8 bitで0〜255になる仕組みまで直感的に学べます。"><meta property="og:url" content="https://nano-tani.github.io/binary-visualizer/binary/">
-<meta name="twitter:card" content="summary"><meta name="twitter:title" content="2進数とは？0と1の仕組みをスイッチで理解する"><meta name="twitter:description" content="2進数とは何かを、8個の0/1スイッチを触りながら初心者向けに解説。1・2・4・8と増える理由、8 bitで0〜255になる仕組みまで直感的に学べます。">
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebPage","name":"2進数は「0と1のスイッチ」と考える","url":"https://nano-tani.github.io/binary-visualizer/binary/","description":"2進数とは何かを、8個の0/1スイッチを触りながら初心者向けに解説。1・2・4・8と増える理由、8 bitで0〜255になる仕組みまで直感的に学べます。","inLanguage":"ja","dateModified":"2026-08-26","isPartOf":{"@type":"WebSite","name":"Computer Basics Lab","url":"https://nano-tani.github.io/binary-visualizer/"}},{"@type":"LearningResource","name":"2進数は「0と1のスイッチ」と考える","url":"https://nano-tani.github.io/binary-visualizer/binary/","description":"2進数とは何かを、8個の0/1スイッチを触りながら初心者向けに解説。1・2・4・8と増える理由、8 bitで0〜255になる仕組みまで直感的に学べます。","inLanguage":"ja","isAccessibleForFree":true,"educationalLevel":"初心者","timeRequired":"PT8M","learningResourceType":"interactive lesson"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Computer Basics Lab","item":"https://nano-tani.github.io/binary-visualizer/"},{"@type":"ListItem","position":2,"name":"データの基礎","item":"https://nano-tani.github.io/binary-visualizer/#courses"},{"@type":"ListItem","position":3,"name":"2進数は「0と1のスイッチ」と考える","item":"https://nano-tani.github.io/binary-visualizer/binary/"}]}]}</script>
-<link rel="stylesheet" href="../assets/site.6723d7db56.css"><script defer src="../assets/core.2b92699b07.js"></script><script defer src="../assets/engine.10bf5c8458.js"></script><script defer src="../assets/labs-a.9578e79e02.js"></script><script defer src="../assets/labs-b.547dbb1c11.js"></script>
+<meta property="og:type" content="article"><meta property="og:locale" content="ja_JP"><meta property="og:site_name" content="Computer Basics Lab"><meta property="og:title" content="2進数とは？0と1の仕組みをスイッチで理解する"><meta property="og:description" content="8個のスイッチを押して、2進数を直感的に理解する初心者向け教材。"><meta property="og:url" content="https://nano-tani.github.io/binary-visualizer/binary/">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebPage","name":"2進数とは？0と1の仕組みをスイッチで理解する","url":"https://nano-tani.github.io/binary-visualizer/binary/","inLanguage":"ja","dateModified":"2026-08-26"},{"@type":"LearningResource","name":"2進数をスイッチで理解する","url":"https://nano-tani.github.io/binary-visualizer/binary/","inLanguage":"ja","isAccessibleForFree":true,"educationalLevel":"初心者","timeRequired":"PT8M"}]}</script>
+<link rel="stylesheet" href="../assets/site.6723d7db56.css">
+<style>
+.binary-live{display:grid;gap:12px}.binary-live .switch-grid{grid-template-columns:repeat(4,1fr)}
+.binary-live .bit-btn{display:block;width:100%;min-height:104px}.binary-live .bit-btn b{font-size:30px}.binary-live .bit-btn[aria-pressed="true"]{background:var(--green-soft);border-color:#8cc9a3}.binary-live .bit-btn[aria-pressed="true"] em{color:var(--green);font-weight:900}
+.binary-live .result strong{font-size:42px}.binary-note{font-size:13px;color:var(--muted);margin:0}
+@media(min-width:760px){.binary-live .switch-grid{grid-template-columns:repeat(8,1fr)}}
+</style>
 </head>
 <body data-lesson="binary">
 <a class="skip" href="#main">本文へ移動</a>
-<header class="site-header"><div class="wrap inner">
-<a class="brand" href="../"><span class="brand-mark">01</span><span class="brand-name">Computer Basics Lab<small>触って理解するIT基礎</small></span></a>
-<nav class="header-nav" aria-label="サイトナビ"><a class="wide" href="../glossary/">用語集</a><a class="wide" href="../instructors/">講師向け</a><a href="../#courses">コース</a></nav>
-</div></header>
-<div class="presentation-bar"><button class="btn" type="button" data-exit-present>通常表示へ戻る</button><button class="btn" type="button" data-print>印刷</button></div>
+<header class="site-header"><div class="wrap inner"><a class="brand" href="../"><span class="brand-mark">01</span><span class="brand-name">Computer Basics Lab<small>触って理解するIT基礎</small></span></a><nav class="header-nav" aria-label="サイトナビ"><a class="wide" href="../glossary/">用語集</a><a class="wide" href="../instructors/">講師向け</a><a href="../#courses">コース</a></nav></div></header>
 <main id="main" class="wrap page">
-<nav class="crumb" aria-label="パンくず"><a href="../">トップ</a><span>›</span><a href="../#courses">データの基礎</a><span>›</span><span>2進数は「0と1のスイッチ」と考える</span></nav>
-<section class="hero">
-<span class="kicker">INTERACTIVE LESSON</span>
-<div class="meta"><span class="pill course">データの基礎</span><span class="pill beginner">初心者</span><span class="pill">約8分</span><span class="pill">内容レビュー 2026-08-26</span></div>
-<h1>2進数は「0と1のスイッチ」と考える</h1><p class="lead">2進数とは何かを、8個の0/1スイッチを触りながら初心者向けに解説。1・2・4・8と増える理由、8 bitで0〜255になる仕組みまで直感的に学べます。</p>
-<div class="goals goals-default"><h2>このページで分かればOK</h2><ul><li>0と1をOFF / ONの2状態としてイメージできる</li><li>ONになっている桁の値を足すと10進数になると分かる</li><li>8 bitで256通り、0〜255を表せると分かる</li></ul></div>
-<div class="goals quick-goals"><h2>最短コースでは、ここまで分かればOK</h2><ul><li>0と1は2つの状態を表す、とイメージできる</li><li>ONの桁だけ値を足す、と分かる</li></ul></div>
-<div class="quick-banner"><strong><span data-quick-name>最短コース</span> <span data-quick-count></span></strong><span>このモードでは、まず「何のための仕組みか」を優先します。発展用語は覚えなくて大丈夫です。</span><div class="quick-dots" data-quick-dots></div></div>
-<div class="bridge"><b>→</b><div><strong>前の知識とどうつながる？</strong><span>ここが入口です。次の最短コースでは、0/1で表せる「数字」が実際の通信でどう使われるか見ます。</span></div></div>
-</section>
-<section class="section">
-<div class="section-head"><span class="eyebrow">TRY FIRST</span><h2>まず触る。説明はそのあと</h2><p class="section-note">操作した結果の下に「読み取れること」が出ます。変化と意味をセットで見てください。</p></div>
-<div data-lab><div class="noscript">JavaScriptを有効にすると、このページの操作教材を使えます。下の説明文だけでも内容は読めます。</div></div>
-<noscript><div class="noscript">操作教材はJavaScriptを使います。説明・理解チェック・参考資料はJavaScriptなしでも読めます。</div></noscript>
-</section>
-<section class="section memory"><h2>これだけ覚える</h2><p>ONになっている桁の値を足す。左へ1桁進むたびに値は2倍になる。</p></section>
-<section class="section">
-<div class="section-head"><span class="eyebrow">READ IN 1 MINUTE</span><h2>1分で読む説明</h2><p class="section-note">検索から来た人も、ここだけ読めば要点がつながるように書いています。</p></div>
-<div class="article"><h3>2進数とは何か</h3><p>2進数は、0と1の2種類の数字だけで数を表す方法です。10進数が0〜9を使うのに対し、2進数は0と1だけを使います。コンピュータの電子回路は2つの状態を扱いやすいため、0/1による表現と相性がよいです。</p><h3>なぜ1・2・4・8になる？</h3><p>右端を1とすると、左へ1桁進むたびに値は2倍です。8 bitなら右から1、2、4、8、16、32、64、128。1になっている場所だけを足せば10進数の値になります。</p><h3>8 bitでなぜ0〜255？</h3><p>8個のスイッチはそれぞれ0か1の2通りなので、組み合わせは2の8乗で256通りあります。0から数えるため、表せる値は0〜255です。</p></div>
-</section>
-<section class="section full-only">
-<div class="section-head"><span class="eyebrow">COMMON MISUNDERSTANDINGS</span><h2>よくある勘違い</h2></div><div class="mis-grid"><div class="mis"><strong>「2進数は難しい計算方法」</strong><span>最初は計算よりスイッチとして見れば十分です。0/1の並びに各桁の重みがあるだけです。</span></div><div class="mis"><strong>「0と1は文字として保存されている」</strong><span>実際の物理表現は電圧・磁化などさまざまです。0/1はそれを抽象化した表現です。</span></div></div>
-</section>
-<section class="section full-only">
-<div class="section-head"><span class="eyebrow">TERMS</span><h2>このページの用語</h2><p class="section-note">忘れても大丈夫です。用語集からいつでも戻れます。</p></div><div class="term-grid"><div class="term-card"><strong>bit</strong><span>0か1の1つ分。binary digitの略。</span><a href="../glossary/#bit-f67169">用語集で確認 →</a></div><div class="term-card"><strong>byte</strong><span>通常8 bitをひとまとまりとして扱う単位。</span><a href="../glossary/#byte-40ea57">用語集で確認 →</a></div></div>
-</section>
-<section class="section">
-<div class="section-head"><span class="eyebrow">CHECK</span><h2>理解チェック</h2><p class="section-note">正誤だけでなく「なぜ」を確認します。自分用チェックで、講師へ成績が送られることはありません。</p></div>
-<div class="quiz-default"><div class="quiz-list"><div class="quiz" data-answer="a" data-explain="4と1がONなので、4 + 1 = 5です。"><strong>Q1. 0101 は10進数でいくつ？</strong><div class="quiz-options"><button type="button" class="quiz-option" data-value="a">5</button><button type="button" class="quiz-option" data-value="b">6</button><button type="button" class="quiz-option" data-value="c">10</button></div><div class="quiz-feedback" aria-live="polite"></div></div><div class="quiz" data-answer="b" data-explain="2の8乗で256通り。0から始まるので0〜255です。"><strong>Q2. 8 bitで表せる値の範囲は？</strong><div class="quiz-options"><button type="button" class="quiz-option" data-value="a">0〜8</button><button type="button" class="quiz-option" data-value="b">0〜255</button><button type="button" class="quiz-option" data-value="c">1〜256</button></div><div class="quiz-feedback" aria-live="polite"></div></div></div></div>
-<div class="quiz-quick"><div class="quiz-list"><div class="quiz" data-answer="a" data-explain="2進数は0と1だけを使います。"><strong>Q1. 2進数で使う数字は？</strong><div class="quiz-options"><button type="button" class="quiz-option" data-value="a">0と1</button><button type="button" class="quiz-option" data-value="b">0〜9</button><button type="button" class="quiz-option" data-value="c">A〜F</button></div><div class="quiz-feedback" aria-live="polite"></div></div></div></div>
-<div class="complete-row"><span>この記録はこのブラウザだけに保存されます。</span><button type="button" class="btn complete-btn">自分用に「分かった」を記録</button></div>
-</section>
-<section class="section sources">
-<div class="section-head"><span class="eyebrow">SOURCES & SCOPE</span><h2>参考資料と簡略化の範囲</h2></div>
-<p>初心者が全体像をつかめるよう、実装や例外を省略している箇所があります。仕様確認が必要な場合は以下の一次・標準資料を参照してください。</p><ul><li><a href="https://csrc.nist.gov/glossary/term/bit" rel="noopener noreferrer">NIST Dictionary: bit</a></li></ul>
-<div class="reviewed"><span>最終内容レビュー: 2026-08-26</span><span>学習用シミュレーション</span><span>無料教材</span></div>
-</section>
-<details class="teacher">
-<summary>講師向けメモ・投影/配布ツール</summary>
-<div class="teacher-body">
-<div class="teacher-grid">
-<div class="teacher-item"><b>前提知識</b>前提知識なし</div>
-<div class="teacher-item"><b>到達目標</b>0/1をスイッチとして説明し、8 bitの値を操作できる</div>
-<div class="teacher-item"><b>導入の問い</b>「部屋の照明が8個あってON/OFFしかないなら、何通り作れそう？」</div>
-<div class="teacher-item"><b>誤解しやすい点</b>変換計算を先に教えすぎると、2進数=暗記計算になりやすい</div>
-<div class="teacher-item"><b>使い方</b>5〜10分。最初に説明せず30秒触らせてから言語化させる</div>
-<div class="teacher-item"><b>目安</b>8分前後。理解チェックは自己確認用です。</div>
+<nav class="crumb" aria-label="パンくず"><a href="../">トップ</a><span>›</span><a href="../#courses">データの基礎</a><span>›</span><span>2進数</span></nav>
+<section class="hero"><span class="kicker">INTERACTIVE LESSON</span><div class="meta"><span class="pill course">データの基礎</span><span class="pill beginner">初心者</span><span class="pill">約8分</span><span class="pill">内容レビュー 2026-08-26</span></div><h1>2進数は「0と1のスイッチ」</h1><p class="lead">2進数を暗記する前に、8個のスイッチを押して「ONになった値を足す」と数になる感覚をつかみます。</p><div class="goals"><h2>このページで分かればOK</h2><ul><li>0と1をOFF / ONとしてイメージできる</li><li>ONになった桁の値を足して10進数にできる</li><li>左へ1桁進むごとに値が2倍になると分かる</li></ul></div><div class="bridge"><b>→</b><div><strong>最初のページなので前提知識はありません</strong><span>計算が得意でなくても大丈夫です。まず2〜3個押してください。</span></div></div></section>
+<section class="section"><div class="section-head"><span class="eyebrow">TRY FIRST</span><h2>まず触る。説明はそのあと</h2><p class="section-note">下の8個は本物の操作ボタンです。好きなところを押すと0と1が切り替わります。</p></div>
+<div class="lab binary-live" id="binaryLab">
+<p class="binary-note">上の数字がその桁の値です。まず2〜3個タップしてください。</p>
+<div class="switch-grid" aria-label="8ビットのスイッチ">
+<button type="button" class="bit-btn" data-weight="128" aria-pressed="false"><small>128</small><b>0</b><em>OFF</em></button>
+<button type="button" class="bit-btn" data-weight="64" aria-pressed="false"><small>64</small><b>0</b><em>OFF</em></button>
+<button type="button" class="bit-btn" data-weight="32" aria-pressed="false"><small>32</small><b>0</b><em>OFF</em></button>
+<button type="button" class="bit-btn" data-weight="16" aria-pressed="false"><small>16</small><b>0</b><em>OFF</em></button>
+<button type="button" class="bit-btn" data-weight="8" aria-pressed="false"><small>8</small><b>0</b><em>OFF</em></button>
+<button type="button" class="bit-btn" data-weight="4" aria-pressed="false"><small>4</small><b>0</b><em>OFF</em></button>
+<button type="button" class="bit-btn" data-weight="2" aria-pressed="false"><small>2</small><b>0</b><em>OFF</em></button>
+<button type="button" class="bit-btn" data-weight="1" aria-pressed="false"><small>1</small><b>0</b><em>OFF</em></button>
 </div>
-<div class="teacher-actions"><button type="button" class="btn" data-copy-url>この教材URLをコピー</button><button type="button" class="btn" data-present>投影モード</button><button type="button" class="btn" data-print>印刷</button><a class="btn" href="../instructors/">講師向けガイド</a></div>
-</div>
-</details>
-<nav class="lesson-nav" aria-label="前後の教材"><a href="../"><small>← コース一覧</small><strong>トップへ戻る</strong></a><a class="next" href="../hexadecimal/"><small>次 →</small><strong>16進数は「4 bitを1桁で短く書く」</strong></a></nav>
-</main>
-<footer class="site-footer"><div class="wrap"><a href="../">Computer Basics Lab</a> · <a href="../glossary/">用語集</a> · <a href="../instructors/">講師向け</a></div></footer>
+<div class="result" aria-live="polite"><small>10進数</small><strong id="decimalResult">0</strong><span class="subresult" id="binaryResult">00000000</span></div>
+<div class="interpret" id="binaryMeaning"><strong>読み取れること:</strong> まだ全部OFFなので0です。</div>
+<div class="lab-controls"><button type="button" class="btn" id="resetBits">全部OFFに戻す</button><button type="button" class="btn primary" id="exampleBits">例: 90を作る</button></div>
+</div></section>
+<section class="section memory"><h2>これだけ覚える</h2><p>ONになっている桁の値を足す。左へ1桁進むたび、値は1・2・4・8・16…と2倍になる。</p></section>
+<section class="section"><div class="section-head"><span class="eyebrow">READ IN 1 MINUTE</span><h2>1分で読む説明</h2></div><div class="article"><h3>2進数とは</h3><p>2進数は0と1の2種類の数字だけで数を表す方法です。10進数では各桁が1、10、100と10倍になりますが、2進数では1、2、4、8、16と2倍になります。</p><h3>なぜコンピュータで使う？</h3><p>電子回路は電圧の高い・低いなど、2つの状態を区別して扱いやすいため、0と1で情報を表す仕組みと相性がよいからです。</p><h3>8 bitでは何通り？</h3><p>0/1のスイッチが8個あると2の8乗で256通りです。0から数えるため、値としては0〜255を表せます。</p></div></section>
+<section class="section"><div class="section-head"><span class="eyebrow">COMMON MISUNDERSTANDING</span><h2>よくある勘違い</h2></div><div class="mis-grid"><div class="mis"><strong>「2進数は0と1を順番に暗記する」</strong><span>暗記より、各桁が1・2・4・8…の重みを持つと理解する方が重要です。</span></div><div class="mis"><strong>「8 bitなら0〜256」</strong><span>256通りありますが0を含むため、最大値は255です。</span></div></div></section>
+<section class="section"><div class="section-head"><span class="eyebrow">CHECK</span><h2>2問だけ理解チェック</h2></div><div class="quiz-list">
+<div class="quiz" data-answer="a"><strong>Q1. 8と2のスイッチがONなら10進数はいくつ？</strong><div class="quiz-options"><button type="button" class="quiz-option" data-value="a">10</button><button type="button" class="quiz-option" data-value="b">82</button><button type="button" class="quiz-option" data-value="c">6</button></div><div class="quiz-feedback" aria-live="polite"></div></div>
+<div class="quiz" data-answer="b"><strong>Q2. 8 bitで表せる値の範囲は？</strong><div class="quiz-options"><button type="button" class="quiz-option" data-value="a">0〜8</button><button type="button" class="quiz-option" data-value="b">0〜255</button><button type="button" class="quiz-option" data-value="c">1〜256</button></div><div class="quiz-feedback" aria-live="polite"></div></div>
+</div></section>
+<section class="section sources"><div class="section-head"><span class="eyebrow">SOURCES & SCOPE</span><h2>参考と範囲</h2></div><p>このページは初心者向けに、整数を固定長のbit列で表す入口だけを扱います。符号付き整数や浮動小数点は別の仕組みです。</p><div class="reviewed"><span>内容レビュー 2026-08-26</span></div></section>
+<nav class="lesson-nav"><a href="../"><small>← トップ</small><strong>コースを選ぶ</strong></a><a class="next" id="nextLesson" href="../hexadecimal/"><small>次 →</small><strong>16進数</strong></a></nav>
+</main><footer class="site-footer"><div class="wrap"><a href="../">Computer Basics Lab</a> · <a href="../glossary/">用語集</a></div></footer>
+<script>
+(function(){
+  var lab=document.getElementById('binaryLab');
+  var buttons=Array.prototype.slice.call(lab.querySelectorAll('.bit-btn'));
+  var dec=document.getElementById('decimalResult');
+  var bin=document.getElementById('binaryResult');
+  var meaning=document.getElementById('binaryMeaning');
+  function render(){
+    var sum=0, bits='', on=[];
+    buttons.forEach(function(b){var active=b.getAttribute('aria-pressed')==='true';var w=parseInt(b.getAttribute('data-weight'),10);bits+=active?'1':'0';if(active){sum+=w;on.push(w);}b.querySelector('b').textContent=active?'1':'0';b.querySelector('em').textContent=active?'ON':'OFF';});
+    dec.textContent=sum;bin.textContent=bits;
+    meaning.innerHTML='<strong>読み取れること:</strong> '+(on.length?'ONの '+on.join('・')+' を足すと '+sum+'。この0/1の並びが数を表しています。':'全部OFFなので0です。好きな桁を押してみてください。');
+  }
+  buttons.forEach(function(b){b.addEventListener('click',function(){b.setAttribute('aria-pressed',b.getAttribute('aria-pressed')==='true'?'false':'true');render();});});
+  document.getElementById('resetBits').addEventListener('click',function(){buttons.forEach(function(b){b.setAttribute('aria-pressed','false');});render();});
+  document.getElementById('exampleBits').addEventListener('click',function(){var target={64:1,16:1,8:1,2:1};buttons.forEach(function(b){b.setAttribute('aria-pressed',target[parseInt(b.getAttribute('data-weight'),10)]?'true':'false');});render();});
+  Array.prototype.slice.call(document.querySelectorAll('.quiz')).forEach(function(q){Array.prototype.slice.call(q.querySelectorAll('.quiz-option')).forEach(function(btn){btn.addEventListener('click',function(){var ok=btn.getAttribute('data-value')===q.getAttribute('data-answer');Array.prototype.slice.call(q.querySelectorAll('.quiz-option')).forEach(function(x){x.disabled=true;if(x.getAttribute('data-value')===q.getAttribute('data-answer'))x.classList.add('correct');});if(!ok)btn.classList.add('wrong');q.querySelector('.quiz-feedback').textContent=ok?'正解。':'正解を緑で表示しました。上のスイッチでも確かめてみてください。';});});});
+  if(new URLSearchParams(location.search).get('path')==='quick'){var next=document.getElementById('nextLesson');next.href='../ip-address/?path=quick';next.querySelector('strong').textContent='IPアドレス';}
+  render();
+})();
+</script>
 </body></html>
