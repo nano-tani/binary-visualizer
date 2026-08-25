@@ -33,5 +33,6 @@ C.initCopy=()=>C.$$('[data-copy-url]').forEach(b=>b.addEventListener('click',asy
 C.initUtility=()=>{const p=C.$('[data-present]');if(p)p.onclick=()=>{const u=new URL(location.href);u.searchParams.set('present','1');location.href=u};const x=C.$('[data-exit-present]');if(x)x.onclick=()=>{const u=new URL(location.href);u.searchParams.delete('present');location.href=u};C.$$('[data-print]').forEach(b=>b.onclick=()=>print());const r=C.$('[data-reset-progress]');if(r)r.onclick=()=>{if(confirm('このブラウザの自分用チェックをすべて消しますか？')){localStorage.removeItem(C.key);C.updateHome()}}};
 C.initGlossary=()=>{const input=C.$('[data-glossary-search]');if(!input)return;const items=C.$$('.glossary-item'),run=()=>{const q=input.value.trim().toLowerCase();items.forEach(x=>x.hidden=q&&!x.textContent.toLowerCase().includes(q));C.$('[data-glossary-count]').textContent=items.filter(x=>!x.hidden).length+'語表示'};input.addEventListener('input',run);run()};
 C.boot=()=>{C.updateHome();C.initModes();C.initQuiz();C.initProgress();C.initCopy();C.initUtility();C.initGlossary();if(C.initLab)C.initLab()};
-document.readyState==='loading'?document.addEventListener('DOMContentLoaded',C.boot):C.boot()
+const start=()=>C.boot();
+if(document.readyState==='loading'||document.readyState==='interactive')document.addEventListener('DOMContentLoaded',start,{once:true});else start();
 })();
