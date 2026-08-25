@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="コンピュータの基礎を、読むだけでなく実際に触って理解できる無料の学習・研修向けサイト。2進数、16進数、ビット演算、文字コード、データ容量、IPアドレス、CIDR、DNS、DHCP、ARP、MACアドレス、ポート番号、TCP・UDP、3-way handshake、TCP切断などを学べます。">
+<meta name="description" content="コンピュータの基礎を、読むだけでなく実際に触って理解できる無料の学習・研修向けサイト。2進数、16進数、ビット演算、文字コード、データ容量、IPアドレス、CIDR、DNS、DHCP、ARP、MACアドレス、ポート番号、TCP・UDP、3-way handshake、TCP切断、HTTP・HTTPSなどを学べます。">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <meta name="theme-color" content="#eef4fb">
 <link rel="canonical" href="https://nano-tani.github.io/binary-visualizer/">
@@ -15,7 +15,7 @@
 <body>
 <header class="wrap"><div class="tag">COMPUTER BASICS LAB</div><h1>コンピュータ基礎を<br>触って理解する。</h1><p class="lead">新人研修や学び直しで「説明を読んだけど、いまいち分からない」を減らすためのサイトです。図とツールを動かしながら、コンピュータの基本を確認できます。</p><div class="hero-note">研修でそのままURLを共有できる、無料の参考教材を目指して順次追加しています。</div></header>
 <main class="wrap">
-<section class="section"><div class="section-head"><div><h2>まずはここから</h2><p>0と1からTCP切断まで、順番に触って理解する</p></div></div><div class="grid">
+<section class="section"><div class="section-head"><div><h2>まずはここから</h2><p>0と1からHTTP / HTTPSまで、順番に触って理解する</p></div></div><div class="grid">
 <a class="card" href="./binary/"><div class="eyebrow">NUMBER SYSTEM</div><h3>2進数ってこういうこと。</h3><p>8個のスイッチを押しながら、0と1が10進数の値になる仕組みと繰り上がりを確認します。</p><div class="meta"><span class="pill live">公開中</span><span class="pill">理解＋ツール</span><span class="pill">初学者向け</span></div></a>
 <a class="card" href="./hexadecimal/"><div class="eyebrow">NUMBER SYSTEM</div><h3>16進数を触って理解する</h3><p>0〜15を1桁で表す考え方と、2進数4ビットとの対応を実際に変換しながら確認します。</p><div class="meta"><span class="pill live">公開中</span><span class="pill">理解＋変換ツール</span></div></a>
 <a class="card" href="./bitwise/"><div class="eyebrow">BIT OPERATION</div><h3>AND・OR・XORを触って理解する</h3><p>1ビットのロジック図形と8ビット操作で、AND・OR・XORの違いを確認します。</p><div class="meta"><span class="pill live">公開中</span><span class="pill">理解＋演算ツール</span></div></a>
@@ -30,9 +30,10 @@
 <a class="card" href="./tcp-udp/"><div class="eyebrow">NETWORK</div><h3>TCPとUDPの違いを図で理解する</h3><p>パケットを途中で落として、TCPのACK・再送と、UDPが確認を待たず送る違いを比較します。</p><div class="meta"><span class="pill live">公開中</span><span class="pill">理解＋通信比較シミュレーター</span></div></a>
 <a class="card" href="./three-way-handshake/"><div class="eyebrow">NETWORK</div><h3>3-way handshakeを図で理解する</h3><p>SYN・SYN-ACK・ACKを追いながら、TCP接続がESTABLISHEDになるまでとシーケンス番号を確認します。</p><div class="meta"><span class="pill live">公開中</span><span class="pill">理解＋接続確立シミュレーター</span></div></a>
 <a class="card" href="./tcp-close/"><div class="eyebrow">NETWORK</div><h3>TCP切断をFIN・ACKで理解する</h3><p>FIN・ACK・CLOSE_WAIT・TIME_WAITを追いながら、TCP接続が正常終了するまでを確認します。</p><div class="meta"><span class="pill live">公開中</span><span class="pill">理解＋接続終了シミュレーター</span></div></a>
+<a class="card" href="./http-https/"><div class="eyebrow">WEB</div><h3>HTTPとHTTPSを図で理解する</h3><p>DNS・TCP・TLS・HTTPリクエスト・レスポンスを追いながら、Webページが届くまでとHTTP/HTTPSの違いを確認します。</p><div class="meta"><span class="pill live">公開中</span><span class="pill">理解＋Web通信シミュレーター</span></div></a>
 </div></section>
 <section class="category"><h2>これから増やす分野</h2><div class="category-grid">
-<div class="small"><strong>HTTP / HTTPS</strong><span>リクエスト / レスポンス</span></div><div class="small"><strong>TLS</strong><span>証明書 / 暗号化</span></div><div class="small"><strong>OS</strong><span>プロセス / スレッド</span></div><div class="small"><strong>ハードウェア</strong><span>CPU / RAM / ストレージ</span></div><div class="small"><strong>色の表現</strong><span>RGB / 16進数</span></div><div class="small"><strong>負の数</strong><span>2の補数</span></div><div class="small"><strong>Web通信</strong><span>URL / Cookie / Cache</span></div><div class="small"><strong>ルーティング</strong><span>経路 / デフォルトゲートウェイ</span></div>
+<div class="small"><strong>TLS</strong><span>証明書 / 暗号化</span></div><div class="small"><strong>HTTPメソッド</strong><span>GET / POST / PUT / DELETE</span></div><div class="small"><strong>OS</strong><span>プロセス / スレッド</span></div><div class="small"><strong>ハードウェア</strong><span>CPU / RAM / ストレージ</span></div><div class="small"><strong>色の表現</strong><span>RGB / 16進数</span></div><div class="small"><strong>負の数</strong><span>2の補数</span></div><div class="small"><strong>Web通信</strong><span>URL / Cookie / Cache</span></div><div class="small"><strong>ルーティング</strong><span>経路 / デフォルトゲートウェイ</span></div>
 </div></section>
 </main><footer class="wrap">Computer Basics Lab — 触って理解するコンピュータ基礎</footer>
 </body></html>
