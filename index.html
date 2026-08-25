@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="コンピュータ基礎を図とツールで触って理解できる無料の学習・研修向けサイト。2進数、IP、DNS、TCP、HTTP、TLS、Cookie、Cacheなどを学べます。">
+<meta name="description" content="コンピュータ基礎を図とツールで触って理解できる無料の学習・研修向けサイト。2進数、IP、DNS、TCP、HTTP、TLS、Cookie、Cache、Sessionなどを学べます。">
 <meta name="robots" content="index,follow,max-image-preview:large"><meta name="theme-color" content="#eef4fb">
 <link rel="canonical" href="https://nano-tani.github.io/binary-visualizer/">
 <meta property="og:type" content="website"><meta property="og:locale" content="ja_JP"><meta property="og:site_name" content="Computer Basics Lab"><meta property="og:title" content="コンピュータ基礎を触って理解する | Computer Basics Lab"><meta property="og:description" content="新人研修や学び直しに。コンピュータの基礎を図とツールで直感的に理解できます。"><meta property="og:url" content="https://nano-tani.github.io/binary-visualizer/"><meta name="twitter:card" content="summary">
@@ -12,7 +12,7 @@
 </head>
 <body>
 <header class="wrap"><div class="tag">COMPUTER BASICS LAB</div><h1>コンピュータ基礎を<br>触って理解する。</h1><p class="lead">新人研修や学び直しで「説明を読んだけど、いまいち分からない」を減らすためのサイトです。図とツールを動かしながら、コンピュータの基本を確認できます。</p><div class="hero-note">研修でそのままURLを共有できる、無料の参考教材を目指して順次追加しています。</div></header>
-<main class="wrap"><section class="section"><div class="section-head"><h2>まずはここから</h2><p>0と1からCookie / Cacheまで、順番に触って理解する</p></div><div class="grid">
+<main class="wrap"><section class="section"><div class="section-head"><h2>まずはここから</h2><p>0と1からSessionまで、順番に触って理解する</p></div><div class="grid">
 <a class="card" href="./binary/"><div class="eyebrow">NUMBER SYSTEM</div><h3>2進数ってこういうこと。</h3><p>8個のスイッチで、0と1が数になる仕組みを確認します。</p><div class="meta"><span class="pill live">公開中</span><span class="pill">理解＋ツール</span></div></a>
 <a class="card" href="./hexadecimal/"><div class="eyebrow">NUMBER SYSTEM</div><h3>16進数を触って理解する</h3><p>2進数4ビットと16進数1桁の対応を触って確認します。</p><div class="meta"><span class="pill live">公開中</span><span class="pill">理解＋変換</span></div></a>
 <a class="card" href="./bitwise/"><div class="eyebrow">BIT OPERATION</div><h3>AND・OR・XORを触って理解する</h3><p>ロジック図形と8ビット操作で演算の違いを確認します。</p><div class="meta"><span class="pill live">公開中</span><span class="pill">理解＋演算</span></div></a>
@@ -32,6 +32,7 @@
 <a class="card" href="./http-methods/"><div class="eyebrow">WEB</div><h3>HTTPメソッドを触って理解する</h3><p>GET・POST・PUT・DELETEで取得・作成・更新・削除の違いを確認します。</p><div class="meta"><span class="pill live">公開中</span><span class="pill">理解＋HTTPメソッド</span></div></a>
 <a class="card" href="./http-status/"><div class="eyebrow">WEB</div><h3>HTTPステータスコードを図で理解する</h3><p>200・301・304・404・500など、サーバーが返す処理結果とブラウザの動きを確認します。</p><div class="meta"><span class="pill live">公開中</span><span class="pill">理解＋HTTPステータス</span></div></a>
 <a class="card" href="./cookie-cache/"><div class="eyebrow">WEB</div><h3>CookieとCacheを図で理解する</h3><p>Set-Cookie・Cookie・Cache-Control・ETag・304を追い、状態保存とデータ再利用の違いを確認します。</p><div class="meta"><span class="pill live">公開中</span><span class="pill">理解＋Cookie / Cache</span></div></a>
-</div></section><section class="category"><h2>これから増やす分野</h2><div class="category-grid"><div class="small"><strong>Session</strong><span>ログイン状態 / セッションID</span></div><div class="small"><strong>ルーティング</strong><span>経路 / ゲートウェイ</span></div><div class="small"><strong>OS</strong><span>プロセス / スレッド</span></div><div class="small"><strong>ハードウェア</strong><span>CPU / RAM / ストレージ</span></div><div class="small"><strong>色の表現</strong><span>RGB / 16進数</span></div><div class="small"><strong>負の数</strong><span>2の補数</span></div><div class="small"><strong>URL</strong><span>scheme / host / path</span></div><div class="small"><strong>HTTPヘッダー</strong><span>Host / Accept / Content-Type</span></div></div></section></main>
+<a class="card" href="./session/"><div class="eyebrow">WEB</div><h3>Sessionとログイン状態を図で理解する</h3><p>ログイン・セッションID発行・Cookie保存・照合・ログアウトまでを追い、ログイン状態が続く仕組みを確認します。</p><div class="meta"><span class="pill live">公開中</span><span class="pill">理解＋Session</span></div></a>
+</div></section><section class="category"><h2>これから増やす分野</h2><div class="category-grid"><div class="small"><strong>認証 / 認可</strong><span>Authentication / Authorization</span></div><div class="small"><strong>ルーティング</strong><span>経路 / ゲートウェイ</span></div><div class="small"><strong>OS</strong><span>プロセス / スレッド</span></div><div class="small"><strong>ハードウェア</strong><span>CPU / RAM / ストレージ</span></div><div class="small"><strong>色の表現</strong><span>RGB / 16進数</span></div><div class="small"><strong>負の数</strong><span>2の補数</span></div><div class="small"><strong>URL</strong><span>scheme / host / path</span></div><div class="small"><strong>HTTPヘッダー</strong><span>Host / Accept / Content-Type</span></div></div></section></main>
 <footer class="wrap">Computer Basics Lab — 触って理解するコンピュータ基礎</footer>
 </body></html>
