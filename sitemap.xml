@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://nano-tani.github.io/binary-visualizer/</loc><lastmod>2026-08-26</lastmod></url>
+  <url><loc>https://nano-tani.github.io/binary-visualizer/</loc><lastmod>2026-08-27</lastmod></url>
   <url><loc>https://nano-tani.github.io/binary-visualizer/binary/</loc><lastmod>2026-08-26</lastmod></url>
   <url><loc>https://nano-tani.github.io/binary-visualizer/hexadecimal/</loc><lastmod>2026-08-26</lastmod></url>
   <url><loc>https://nano-tani.github.io/binary-visualizer/data-size/</loc><lastmod>2026-08-26</lastmod></url>
@@ -24,4 +24,10 @@
   <url><loc>https://nano-tani.github.io/binary-visualizer/glossary/</loc><lastmod>2026-08-26</lastmod></url>
   <url><loc>https://nano-tani.github.io/binary-visualizer/instructors/</loc><lastmod>2026-08-26</lastmod></url>
   <url><loc>https://nano-tani.github.io/binary-visualizer/privacy/</loc><lastmod>2026-08-27</lastmod></url>
+  <url><loc>https://nano-tani.github.io/binary-visualizer/tools/</loc><lastmod>2026-08-27</lastmod></url>
+  <url><loc>https://nano-tani.github.io/binary-visualizer/tools/base-converter/</loc><lastmod>2026-08-27</lastmod></url>
+  <url><loc>https://nano-tani.github.io/binary-visualizer/tools/cidr/</loc><lastmod>2026-08-27</lastmod></url>
+  <url><loc>https://nano-tani.github.io/binary-visualizer/tools/text-encoding/</loc><lastmod>2026-08-27</lastmod></url>
+  <url><loc>https://nano-tani.github.io/binary-visualizer/tools/port/</loc><lastmod>2026-08-27</lastmod></url>
+  <url><loc>https://nano-tani.github.io/binary-visualizer/tools/url-parser/</loc><lastmod>2026-08-27</lastmod></url>
 </urlset>
